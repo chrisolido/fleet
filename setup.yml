@@ -1,0 +1,70 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+
+    - name: Look for fast Cache
+      raw: yum makecache fast
+      become: true
+      tags: setup
+
+    - name: Add EPEL repository
+      yum:
+        name: epel-release
+      become: true
+      tags: setup
+ 
+    - name: Update repolist
+      raw: yum update repolist
+      become: true
+      tags: setup
+
+    - name: Install Base packages
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - net-tools
+        - curl 
+        - telnet 
+        - "@Development tools"
+        - make
+        - readline
+        - zlib-devel 
+        - python-devel 
+        - PyGreSQL 
+        - libxml2 
+        - boost-build
+        - boost148-build.noarch
+        - "@php-*"
+        - php-pgsql
+        - boost-devel
+        - boost-jam
+        - cmake
+        - gnuplot
+        - screen
+        - syslog-ng
+        - patch
+        - bzip2
+        become: true
+        tags: setup
+
+    - name: Install Base packages
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - php-mcrypt 
+        - php-curl 
+        - php-pear 
+        - php-gettext  
+        - php-pear-Log 
+        - php-pear-Mail
+        become: true
+        tags: setup
+
+    - name: Build Extensions
+      include_tasks: build_extensions.yml
+
+    - name: Install Posgres 10
+      include_tasks: postgres.yml

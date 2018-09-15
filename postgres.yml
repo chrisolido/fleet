@@ -1,0 +1,53 @@
+---
+# Install Postgres 10  
+- name: Add Postgres Yum Repository
+  raw: rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+  ignore_errors: true
+  become: true
+  tags: setup
+
+- name: Look for fast Cache
+  raw: yum makecache fast
+  become: true
+  tags: setup  
+
+- name: Install PostgreSQL 10 Server
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - postgresql10-server
+    - postgresql10
+    - postgresql10-contrib
+  become: true
+  tags: setup 
+
+- name: Check if PostgreSQL database is initialized.
+  stat:
+    path: /var/lib/pgsql/10/data/PG_VERSION
+  register: pgdata_dir_version
+
+- name: Ensure PostgreSQL database is initialized.
+  command: /usr/pgsql-10/bin/postgresql-10-setup initdb
+  when: not pgdata_dir_version.stat.exists
+  become: yes
+  become_user: postgres
+
+#- name: Check DB if initialized
+#  shell: /usr/pgsql-10/bin/postgresql-10-setup initdb
+#  register: result
+
+#- name: Initiallized DB
+#  command: /usr/pgsql-10/bin/postgresql-10-setup initdb
+#  become: true
+#  tags: setup
+#  changed_when: "result.rc != 2"
+  
+- name: Enable postgresql10
+  systemd:
+    name: postgresql10
+    daemon_reload: yes
+    state: started
+    enabled: yes
+  become: true
+  tags: setup

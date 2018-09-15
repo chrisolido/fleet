@@ -1,0 +1,15 @@
+---
+# build_extensions.yml
+- name: install UUID
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - uuid
+    - proj 
+    - geos
+  become: true
+  tags: setup
+
+  
+  
