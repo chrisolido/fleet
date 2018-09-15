@@ -1,5 +1,17 @@
 ---
 # Install Postgres 10  
+- name: Check if PostgreSQL Repository is installed.
+  stat:
+    path: /etc/yum.repos.d/pgdg-10-centos.repo
+  register: pgdg-10-centos
+  tags: setup
+    
+- name: Ensure PostgreSQL database is initialized.
+  command: rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+  when: not pgdg-10-centos.stat.exists
+  become: yes
+  tags: setup
+
 - name: Add Postgres Yum Repository
   raw: rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
   ignore_errors: true
@@ -32,6 +44,7 @@
   when: not pgdata_dir_version.stat.exists
   become: yes
   become_user: postgres
+  tags: setup
 
 #- name: Check DB if initialized
 #  shell: /usr/pgsql-10/bin/postgresql-10-setup initdb
