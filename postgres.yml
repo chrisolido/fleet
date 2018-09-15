@@ -45,7 +45,7 @@
   
 - name: Enable postgresql10
   systemd:
-    name: postgresql10
+    name: postgresql-10
     daemon_reload: yes
     state: started
     enabled: yes
