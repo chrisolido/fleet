@@ -3,13 +3,13 @@
 - name: Check if PostgreSQL Repository is installed.
   stat:
     path: /etc/yum.repos.d/pgdg-10-centos.repo
-  register: pgdg-10-centos
+  register: pgdg_10_centos_repo
   tags: setup
     
 - name: Install PostgreSQL Repository
   command: rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
   become: yes
-  when: not pgdg-10-centos.stat.exists
+  when: not pgdg_10_centos_repo.stat.exists
   tags: setup
 
 - name: Look for fast Cache
@@ -39,16 +39,6 @@
   become: yes
   become_user: postgres
   tags: setup
-
-#- name: Check DB if initialized
-#  shell: /usr/pgsql-10/bin/postgresql-10-setup initdb
-#  register: result
-
-#- name: Initiallized DB
-#  command: /usr/pgsql-10/bin/postgresql-10-setup initdb
-#  become: true
-#  tags: setup
-#  changed_when: "result.rc != 2"
   
 - name: Enable postgresql10
   systemd:
@@ -58,3 +48,12 @@
     enabled: yes
   become: true
   tags: setup
+
+- name: Setup pg_hba.conf 127.0.0.1 to trust
+  lineinfile:
+    path: /var/lib/pgsql/10/data/pg_hba.conf
+    regexp: '^host    all             all             127.0.0.1/32            ident'
+    insertafter: '^host    replication'
+
+
+
