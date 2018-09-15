@@ -6,16 +6,10 @@
   register: pgdg-10-centos
   tags: setup
     
-- name: Ensure PostgreSQL database is initialized.
+- name: Install PostgreSQL Repository
   command: rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
-  when: not pgdg-10-centos.stat.exists
   become: yes
-  tags: setup
-
-- name: Add Postgres Yum Repository
-  raw: rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
-  ignore_errors: true
-  become: true
+  when: not pgdg-10-centos.stat.exists
   tags: setup
 
 - name: Look for fast Cache
