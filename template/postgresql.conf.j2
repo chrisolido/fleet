@@ -654,5 +654,12 @@ default_text_search_config = 'pg_catalog.english'
 #------------------------------------------------------------------------------
 # CUSTOMIZED OPTIONS
 #------------------------------------------------------------------------------
-
 # Add settings for extensions here
+ct.country_code=NZ
+ct.ct_fleet_dsn='host=127.0.0.1 port=5432 user=signal_alerts password=postgres dbname=ct_fleet sslmode=disable'
+ct.debug=0
+custom.application = 'unknown'
+custom.location = 'NZ'
+custom.user_id = 1
+custom.user_name = 'system'
+shared_preload_libraries = 'auto_explain'

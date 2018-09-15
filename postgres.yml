@@ -50,10 +50,22 @@
   tags: setup
 
 - name: Setup pg_hba.conf 127.0.0.1 to trust
-  lineinfile:
-    path: /var/lib/pgsql/10/data/pg_hba.conf
-    regexp: '^host    all             all             127.0.0.1/32            ident'
-    insertafter: '^host    replication'
+  template:
+    src: template/pg_hba.conf.j2
+    dest: /var/lib/pgsql/10/data/pg_hba.conf
+    owner: bin
+    group: wheel
+    mode: 0644
+  become: true
+  tags: setup
 
-
+- name: Setup postgresql.conf
+  template:
+    src: template/postgresql.conf.j2
+    dest: /var/lib/pgsql/10/data/postgresql.conf
+    owner: bin
+    group: wheel
+    mode: 0644
+  become: true
+  tags: setup
 
