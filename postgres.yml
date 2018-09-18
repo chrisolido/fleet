@@ -17,8 +17,7 @@
   become: true
   tags: setup  
 
-- name: Build Extensions
-  include_tasks: build_extensions.yml
+
 
 - name: Install PostgreSQL 10 Server
   yum:
@@ -82,7 +81,7 @@
 #  poll: 0
 #  ignore_errors: true
 
-- name: Add the FQDN in fleet.client_server_details tables
-  shell: psql  insert into fleet.client_server_details values('{{ SERVER_NAME }}',1,'{{ SERVER_DOMAIN }}');
-  become_user: postgres
-  tag: setup
+#- name: Add the FQDN in fleet.client_server_details tables
+#  shell: psql  insert into fleet.client_server_details values('{{ SERVER_NAME }}',1,'{{ SERVER_DOMAIN }}');
+#  become_user: postgres
+#  tag: setup
