@@ -76,9 +76,13 @@
   become: true
   tags: setup
 
-- name: Restart server
-  command: /sbin/shutdown -r +1
-  async: 0
-  poll: 0
-  ignore_errors: true
+#- name: Restart server
+#  command: /sbin/shutdown -r +1m
+#  async: 0
+#  poll: 0
+#  ignore_errors: true
 
+- name: Add the FQDN in fleet.client_server_details tables
+  shell: psql  insert into fleet.client_server_details values('{{ SERVER_NAME }}',1,'{{ SERVER_DOMAIN }}');
+  become_user: postgres
+  tag: setup
