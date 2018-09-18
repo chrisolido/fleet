@@ -38,8 +38,6 @@
         - boost148-build.noarch
         - "@php-*"
         - php-pgsql
-        - boost-devel
-        - boost-jam
         - cmake
         - gnuplot
         - screen
@@ -62,9 +60,6 @@
         - php-pear-Mail
         become: true
         tags: setup
-
-    - name: Build Extensions
-      include_tasks: build_extensions.yml
 
     - name: Install Posgres 10
       include_tasks: postgres.yml

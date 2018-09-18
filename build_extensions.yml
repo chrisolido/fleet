@@ -8,6 +8,23 @@
     - uuid
     - proj 
     - geos
+    - postgis
+    - gdal
+    - boost-devel
+    - boost-jam
+    - libconfig-devel
+    - libconfig
+    - mpfr
+    - libxstl-devel
+    - libgcrypt
+    - libgcrypt-devel
+    - libgpg-error-devel
+    - libvorbis-devel
+    - libxml2
+    - libxml2-devel
+    - CGAL
+    - CGAL-devel
+    - CGAL-debuginfo
   become: true
   tags: setup
 
