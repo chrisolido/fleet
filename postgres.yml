@@ -34,21 +34,22 @@
   become: true
   tags: setup 
 
-- name: Check if PostgreSQL database is initialized.
+- name: Check if postgresql-10 database is initialized.
   stat:
     path: /var/lib/pgsql/10/data/PG_VERSION
   register: pgdata_dir_version
+  become: true
+  tags: setup
 
-- name: Ensure PostgreSQL database is initialized.
+- name: Ensure postgresql-10 database is initialized.
   command: /usr/pgsql-10/bin/postgresql-10-setup initdb
   when: not pgdata_dir_version.stat.exists
-  become: yes
   become_user: postgres
   tags: setup
   
-- name: Enable postgresql10
+- name: Enable postgresql-10
   systemd:
-    name:
+    name: postgresql-10
     daemon_reload: yes
     state: started
     enabled: yes

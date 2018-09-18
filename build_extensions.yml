@@ -15,7 +15,7 @@
     - libconfig-devel
     - libconfig
     - mpfr
-    - libxstl-devel
+    - libxslt-devel
     - libgcrypt
     - libgcrypt-devel
     - libgpg-error-devel

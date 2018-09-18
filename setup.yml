@@ -34,8 +34,6 @@
         - python-devel 
         - PyGreSQL 
         - libxml2 
-        - boost-build
-        - boost148-build.noarch
         - "@php-*"
         - php-pgsql
         - cmake
