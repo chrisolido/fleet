@@ -30,6 +30,26 @@
     - postgresql10-devel.x86_64
     - postgresql10-debuginfo
     - pgrouting_10
+    - uuid
+    - proj 
+    - geos
+    - postgis
+    - gdal
+    - boost-devel
+    - boost-jam
+    - libconfig-devel
+    - libconfig
+    - mpfr
+    - libxslt-devel
+    - libgcrypt
+    - libgcrypt-devel
+    - libgpg-error-devel
+    - libvorbis-devel
+    - libxml2
+    - libxml2-devel
+    - CGAL
+    - CGAL-devel
+    - CGAL-debuginfo
   become: true
   tags: setup 
 

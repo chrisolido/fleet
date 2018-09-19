@@ -60,7 +60,4 @@
         tags: setup
 
     - name: Install Posgres 10
-      include_tasks: postgres.yml
-
-    - name: Build Extensions
-      include_tasks: build_extensions.yml
+      include: postgres.yml
